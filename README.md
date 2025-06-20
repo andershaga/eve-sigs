@@ -30,6 +30,7 @@ This tool helps EVE Online explorers track cosmic signatures (wormholes, data si
 ### Basic Usage
 
 1. **Run the script**: `powershell -ExecutionPolicy Bypass -File evesigs.ps1`
+   - *Alternatively, you can use the "EVE Sig Analyzer" shortcut to run the script*
 2. **Copy EVE data**: Copy signature data from EVE's signature scanner
 3. **Press any key**: The script automatically reads your clipboard and processes the data
 4. **View results**: See which signatures are new, updated, or already known

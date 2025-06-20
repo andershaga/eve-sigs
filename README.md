@@ -13,7 +13,7 @@ This tool helps EVE Online explorers track cosmic signatures (wormholes, data si
 
 ## Features
 
-- **Automatic Detection**: Paste EVE signature data directly from the game
+- **Automatic Detection**: Automatically reads EVE signature data from your clipboard
 - **Local Storage**: Keeps track of signatures in a CSV file
 - **Age Tracking**: Shows how old signatures are (e.g., "1dh13" = 1 day 13 hours)
 - **Data Sharing**: Export/import signature data between players
@@ -27,8 +27,9 @@ This tool helps EVE Online explorers track cosmic signatures (wormholes, data si
 ### Basic Usage
 
 1. **Run the script**: `powershell -ExecutionPolicy Bypass -File evesigs.ps1`
-2. **Paste EVE data**: Copy signature data from EVE and paste it in the script
-3. **View results**: See which signatures are new, updated, or already known
+2. **Copy EVE data**: Copy signature data from EVE's signature scanner
+3. **Press any key**: The script automatically reads your clipboard and processes the data
+4. **View results**: See which signatures are new, updated, or already known
 
 ### Menu Options
 
@@ -77,16 +78,6 @@ KOC-906	Cosmic Signature	Data Site	Limited Sleeper Cache	0,0%	3,40 AU
 ## Requirements
 
 - Windows PowerShell
-- EVE Online client
-- Execution policy allowing script execution
-
-## Tips
-
-- **Automatic cleanup**: Signatures are automatically removed after 3 days (UTC time)
-- **Share frequently**: Export and share data with corp/alliance members
-- **Use manual registration**: For signatures found without full scanning
-- **Check ages**: Use age display to prioritize which signatures to scan
-- **Purge timing**: Cleanup happens automatically on each script run
 
 ## Credits
 

@@ -74,6 +74,7 @@ KOC-906	Cosmic Signature	Data Site	Limited Sleeper Cache	0,0%	3,40 AU
 
 - `evesigs.ps1` - Main script
 - `evesigs.csv` - Local signature database (created automatically)
+- `EVE Sig Analyzer.lnk` - Windows shortcut
 
 ## Requirements
 

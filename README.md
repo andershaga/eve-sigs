@@ -20,6 +20,7 @@ This tool helps EVE Online explorers track cosmic signatures (wormholes, data si
 - **Manual Registration**: Add signatures manually with group selection
 - **Duplicate Handling**: Smart merging when importing shared data
 - **UTC Timestamps**: No timezone issues when sharing between players
+- **Automatic Cleanup**: Removes signatures older than 3 days automatically
 
 ## How to Use
 
@@ -81,10 +82,11 @@ KOC-906	Cosmic Signature	Data Site	Limited Sleeper Cache	0,0%	3,40 AU
 
 ## Tips
 
-- **Regular cleanup**: Old signatures are automatically purged after 3 days
+- **Automatic cleanup**: Signatures are automatically removed after 3 days (UTC time)
 - **Share frequently**: Export and share data with corp/alliance members
 - **Use manual registration**: For signatures found without full scanning
 - **Check ages**: Use age display to prioritize which signatures to scan
+- **Purge timing**: Cleanup happens automatically on each script run
 
 ## Credits
 

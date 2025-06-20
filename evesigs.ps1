@@ -142,11 +142,12 @@ PROCESS
                         $clip = $existingClip  # Use existing data for display
                     }
                     
-                    # Format age as "1dh13" (days and hours)
+                    # Format age as "x days x hours"
                     $ageDisplay = ""
-                    if ($localDataAge.days -gt 0) { $ageDisplay += "$($localDataAge.days)d" }
-                    if ($localDataAge.hours -gt 0) { $ageDisplay += "h$($localDataAge.hours)" }
-                    if ($localDataAge.days -eq 0 -and $localDataAge.hours -eq 0) { $ageDisplay = "0h" }
+                    if ($localDataAge.days -gt 0) { $ageDisplay += "$($localDataAge.days) day" + $(if ($localDataAge.days -ne 1) {"s"}) }
+                    if ($localDataAge.days -gt 0 -and $localDataAge.hours -gt 0) { $ageDisplay += " " }
+                    if ($localDataAge.hours -gt 0) { $ageDisplay += "$($localDataAge.hours) hour" + $(if ($localDataAge.hours -ne 1) {"s"}) }
+                    if ($localDataAge.days -eq 0 -and $localDataAge.hours -eq 0) { $ageDisplay = "0 hours" }
                 }
                 else
                 {
@@ -307,9 +308,10 @@ PROCESS
                         {
                             $entryTime = [DateTime]::ParseExact($entry.timestamp, "yyyyMMddHHmm", $null)
                             $age = (get-date).ToUniversalTime() - $entryTime
-                            if ($age.days -gt 0) { $ageDisplay += "$($age.days)d" }
-                            if ($age.hours -gt 0) { $ageDisplay += "h$($age.hours)" }
-                            if ($age.days -eq 0 -and $age.hours -eq 0) { $ageDisplay = "0h" }
+                            if ($age.days -gt 0) { $ageDisplay += "$($age.days) day" + $(if ($age.days -ne 1) {"s"}) }
+                            if ($age.days -gt 0 -and $age.hours -gt 0) { $ageDisplay += " " }
+                            if ($age.hours -gt 0) { $ageDisplay += "$($age.hours) hour" + $(if ($age.hours -ne 1) {"s"}) }
+                            if ($age.days -eq 0 -and $age.hours -eq 0) { $ageDisplay = "0 hours" }
                         }
                         write-host "    $($entry.id) ($($entry.group)) [$ageDisplay]" -f gray
                     }

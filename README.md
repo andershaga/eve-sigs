@@ -2,7 +2,7 @@
 
 A PowerShell-based signature tracking tool for EVE Online that helps you manage and share cosmic signatures discovered during exploration.
 
-![EVE Signature Tracker in Action](assets/eve-sig-tracker-screenshot.png)
+![Alt text](assets/evesigs.png)
 
 ## What is this?
 

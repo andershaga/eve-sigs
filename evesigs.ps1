@@ -194,8 +194,8 @@ PROCESS
                 # Remove existing entries that are being updated
                 $localData = $localData | ? {$_.id -notin $updateIds}
                 
-                # Add the new/updated data
-                $localData += $addToLocalData
+                # Convert to array and add the new/updated data
+                $localData = @($localData) + $addToLocalData
                 
                 # Write all data back to file
                 $localData | Select-Object ID, GROUP, TIMESTAMP | ConvertTo-Csv -Delimiter ";" | out-file $localFilePath -force
@@ -215,7 +215,27 @@ PROCESS
             'A'
             {
                 clear-host
-                $localData | sort id | ft
+                write-host "`n  All Signatures:" -f white
+                write-host ""
+                
+                foreach ($entry in $localData | Sort-Object ID)
+                {
+                    $ageDisplay = ""
+                    if ($entry.timestamp)
+                    {
+                        $entryTime = [DateTime]::ParseExact($entry.timestamp, "yyyyMMddHHmm", $null)
+                        $age = (get-date).ToUniversalTime() - $entryTime
+                        if ($age.days -gt 0) { $ageDisplay += "$($age.days) day" + $(if ($age.days -ne 1) {"s"}) }
+                        if ($age.days -gt 0 -and $age.hours -gt 0) { $ageDisplay += " " }
+                        if ($age.hours -gt 0) { $ageDisplay += "$($age.hours) hour" + $(if ($age.hours -ne 1) {"s"}) }
+                        if ($age.days -eq 0 -and $age.hours -eq 0) { $ageDisplay = "0 hours" }
+                    }
+                    
+                    $groupInfo = if ($entry.group) { "($($entry.group))" } else { "(Unknown)" }
+                    write-host "  $($entry.id) $groupInfo [$ageDisplay]" -f gray
+                }
+                
+                write-host "`n  Total: $($localData.count) signatures" -f darkgray
                 $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | out-null
             }
             'R'

@@ -312,23 +312,124 @@ PROCESS
                 write-host "`n  Delete ID (ie: NEH-246): " -n
                 if ($hostInput = read-host)
                 {
-                    if ($remove = $localData | ? {$_.id -like "*$hostInput*"})
+                    if ($hostInput.Trim())
                     {
-                        write-host ""
-                        $remove.id | % {write-host "  "$_ -f darkgray}
-                        write-host "`n  Delete $($remove.count) entries? (Yes): " -f yellow -n
-                        switch (read-host)
+                        # Use wildcard matching on the first characters
+                        $remove = $localData | ? {$_.id -like "$($hostInput.Trim())*"}
+                        
+                        if ($remove.Count -eq 0)
                         {
-                            'yes'
+                            write-host "`n  No match for `"$hostInput`"" -f red
+                            $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | out-null
+                        }
+                        elseif ($remove.Count -eq 1)
+                        {
+                            # Single match - show details and confirm deletion
+                            write-host ""
+                            write-host "  " -n
+                            if ($remove.group)
                             {
-                                $localData | ? {$_.id -ne $hostInput} | Select-Object ID, GROUP, TIMESTAMP | ConvertTo-Csv -Delimiter ";" | out-file $localFilePath -force
+                                write-host " " -b darkgreen -n
+                            }
+                            else
+                            {
+                                write-host " " -b darkred -n
+                            }
+                            write-host " $($remove.id) ($($remove.group))" -f white
+                            write-host "`n  Delete this entry? (Y/n): " -f yellow -n
+                            $confirmKey = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
+                            if ($confirmKey -ne 'n')
+                            {
+                                $localData = $localData | ? {$_.id -ne $remove.id}
+                                $localData | Select-Object ID, GROUP, TIMESTAMP | ConvertTo-Csv -Delimiter ";" | out-file $localFilePath -force
+                                write-host "`n  Entry deleted successfully" -f green
+                                $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | out-null
                             }
                         }
-                    }
-                    else
-                    {
-                        write-host "`n No match for `"$hostInput`""
-                        $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | out-null
+                        else
+                        {
+                            # Multiple matches - show all matches and ask for more specific input
+                            write-host ""
+                            write-host "  Multiple matches found:" -f yellow
+                            write-host ""
+                            
+                            foreach ($entry in $remove | Sort-Object ID)
+                            {
+                                write-host "  " -n
+                                if ($entry.group)
+                                {
+                                    write-host " " -b darkgreen -n
+                                }
+                                else
+                                {
+                                    write-host " " -b darkred -n
+                                }
+                                write-host " $($entry.id) ($($entry.group))" -f white
+                            }
+                            
+                            write-host "`n  Please enter a more specific ID: " -f yellow -n
+                            if ($specificInput = read-host)
+                            {
+                                if ($specificInput.Trim())
+                                {
+                                    $specificRemove = $remove | ? {$_.id -like "$($specificInput.Trim())*"}
+                                    
+                                    if ($specificRemove.Count -eq 0)
+                                    {
+                                        write-host "`n  No match for `"$specificInput`"" -f red
+                                        $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | out-null
+                                    }
+                                    elseif ($specificRemove.Count -eq 1)
+                                    {
+                                        # Single specific match - confirm deletion
+                                        write-host ""
+                                        write-host "  " -n
+                                        if ($specificRemove.group)
+                                        {
+                                            write-host " " -b darkgreen -n
+                                        }
+                                        else
+                                        {
+                                            write-host " " -b darkred -n
+                                        }
+                                        write-host " $($specificRemove.id) ($($specificRemove.group))" -f white
+                                        write-host "`n  Delete this entry? (Y/n): " -f yellow -n
+                                        $confirmKey = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
+                                        if ($confirmKey -ne 'n')
+                                        {
+                                            $localData = $localData | ? {$_.id -ne $specificRemove.id}
+                                            $localData | Select-Object ID, GROUP, TIMESTAMP | ConvertTo-Csv -Delimiter ";" | out-file $localFilePath -force
+                                            write-host "`n  Entry deleted successfully" -f green
+                                            $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | out-null
+                                        }
+                                    }
+                                    else
+                                    {
+                                        # Still multiple matches - show them again
+                                        write-host ""
+                                        write-host "  Multiple matches found:" -f yellow
+                                        write-host ""
+                                        
+                                        foreach ($entry in $specificRemove | Sort-Object ID)
+                                        {
+                                            write-host "  " -n
+                                            if ($entry.group)
+                                            {
+                                                write-host " " -b darkgreen -n
+                                            }
+                                            else
+                                            {
+                                                write-host " " -b darkred -n
+                                            }
+                                            write-host " $($entry.id) ($($entry.group))" -f white
+                                        }
+                                        
+                                        write-host "`n  Please enter a more specific ID: " -f yellow -n
+                                        $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | out-null
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

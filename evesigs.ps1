@@ -138,7 +138,15 @@ PROCESS
                     }
                     else
                     {
-                        write-host " " -b darkgreen -n
+                        # Use green for identified signatures, red for unknown
+                        if ($clip.group -or $existingClip.group)
+                        {
+                            write-host " " -b darkgreen -n
+                        }
+                        else
+                        {
+                            write-host " " -b darkred -n
+                        }
                         $clip = $existingClip  # Use existing data for display
                     }
                     
@@ -232,7 +240,18 @@ PROCESS
                     }
                     
                     $groupInfo = if ($entry.group) { "($($entry.group))" } else { "(Unknown)" }
-                    write-host "  $($entry.id) $groupInfo [$ageDisplay]" -f gray
+                    
+                    # Apply color coding: green for identified, red for unknown
+                    write-host "  " -n
+                    if ($entry.group)
+                    {
+                        write-host " " -b darkgreen -n
+                    }
+                    else
+                    {
+                        write-host " " -b darkred -n
+                    }
+                    write-host " $($entry.id) $groupInfo [$ageDisplay]" -f white
                 }
                 
                 write-host "`n  Total: $($localData.count) signatures" -f darkgray

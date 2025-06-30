@@ -171,10 +171,7 @@ PROCESS
                     else
                     {
                         write-host " " -b darkred -n
-                        # Save unresolved signatures too, with empty group
-                        $clip.TIMESTAMP = (get-date).ToUniversalTime() | get-date -format yyyyMMddHHmm
-                        $clip.GROUP = ""  # Ensure GROUP field exists but is empty
-                        $addToLocalData += $clip
+                        # Don't save unresolved signatures - just display them
                     }
                 }
 
@@ -239,19 +236,10 @@ PROCESS
                         if ($age.days -eq 0 -and $age.hours -eq 0) { $ageDisplay = "0 hours" }
                     }
                     
-                    $groupInfo = if ($entry.group) { "($($entry.group))" } else { "(Unknown)" }
-                    
-                    # Apply color coding: green for identified, red for unknown
+                    # All saved signatures have group information
                     write-host "  " -n
-                    if ($entry.group)
-                    {
-                        write-host " " -b darkgreen -n
-                    }
-                    else
-                    {
-                        write-host " " -b darkred -n
-                    }
-                    write-host " $($entry.id) $groupInfo [$ageDisplay]" -f white
+                    write-host " " -b darkgreen -n
+                    write-host " $($entry.id) ($($entry.group)) [$ageDisplay]" -f white
                 }
                 
                 write-host "`n  Total: $($localData.count) signatures" -f darkgray
@@ -327,14 +315,7 @@ PROCESS
                             # Single match - show details and confirm deletion
                             write-host ""
                             write-host "  " -n
-                            if ($remove.group)
-                            {
-                                write-host " " -b darkgreen -n
-                            }
-                            else
-                            {
-                                write-host " " -b darkred -n
-                            }
+                            write-host " " -b darkgreen -n
                             write-host " $($remove.id) ($($remove.group))" -f white
                             write-host "`n  Delete this entry? (Y/n): " -f yellow -n
                             $confirmKey = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
@@ -356,14 +337,7 @@ PROCESS
                             foreach ($entry in $remove | Sort-Object ID)
                             {
                                 write-host "  " -n
-                                if ($entry.group)
-                                {
-                                    write-host " " -b darkgreen -n
-                                }
-                                else
-                                {
-                                    write-host " " -b darkred -n
-                                }
+                                write-host " " -b darkgreen -n
                                 write-host " $($entry.id) ($($entry.group))" -f white
                             }
                             
@@ -384,14 +358,7 @@ PROCESS
                                         # Single specific match - confirm deletion
                                         write-host ""
                                         write-host "  " -n
-                                        if ($specificRemove.group)
-                                        {
-                                            write-host " " -b darkgreen -n
-                                        }
-                                        else
-                                        {
-                                            write-host " " -b darkred -n
-                                        }
+                                        write-host " " -b darkgreen -n
                                         write-host " $($specificRemove.id) ($($specificRemove.group))" -f white
                                         write-host "`n  Delete this entry? (Y/n): " -f yellow -n
                                         $confirmKey = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
@@ -413,14 +380,7 @@ PROCESS
                                         foreach ($entry in $specificRemove | Sort-Object ID)
                                         {
                                             write-host "  " -n
-                                            if ($entry.group)
-                                            {
-                                                write-host " " -b darkgreen -n
-                                            }
-                                            else
-                                            {
-                                                write-host " " -b darkred -n
-                                            }
+                                            write-host " " -b darkgreen -n
                                             write-host " $($entry.id) ($($entry.group))" -f white
                                         }
                                         

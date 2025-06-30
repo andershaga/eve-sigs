@@ -1,94 +1,55 @@
 # EVE Signature Tracker
 
-A PowerShell-based signature tracking tool for EVE Online that helps you manage and share cosmic signatures discovered during exploration.
+A simple tool to track cosmic signatures in EVE Online. Automatically detects signatures from your clipboard and helps you manage exploration data.
 
-![EVE Signature Tracker in Action](https://raw.githubusercontent.com/andershaga/eve-sigs/refs/heads/main/assets/evesigs.jpg)
+![EVE Signature Tracker](assets/evesigs.jpg)
 
+## Quick Start
 
-## What is this?
+### Windows Users
+1. **Double-click** `EVE Sig Analyzer.lnk` to run the tool
+2. **Copy** signature data from EVE's scanner
+3. **Press any key** - the tool reads your clipboard automatically
 
-This tool helps EVE Online explorers track cosmic signatures (wormholes, data sites, relic sites, etc.) by:
-- Automatically detecting signatures from EVE's clipboard
-- Storing signature data locally with timestamps
-- Allowing manual registration of signatures
-- Supporting data sharing between players
-- Showing signature age to help with cleanup
+### Mac Users
+1. **Open Terminal**
+2. **Navigate** to the folder: `cd /path/to/eve-sigs`
+3. **Run**: `powershell -ExecutionPolicy Bypass -File evesigs.ps1`
+4. **Copy** signature data from EVE's scanner
+5. **Press any key** - the tool reads your clipboard automatically
 
-## Features
+## What It Does
 
-- **Automatic Detection**: Automatically reads EVE signature data from your clipboard
-- **Local Storage**: Keeps track of signatures in a CSV file
-- **Age Tracking**: Shows how old signatures are (e.g., "1dh13" = 1 day 13 hours)
-- **Data Sharing**: Export/import signature data between players
-- **Manual Registration**: Add signatures manually with group selection
-- **Duplicate Handling**: Smart merging when importing shared data
-- **UTC Timestamps**: No timezone issues when sharing between players
-- **Automatic Cleanup**: Removes signatures older than 3 days automatically
+- **Auto-detects** signatures from EVE's clipboard
+- **Stores** data locally with timestamps
+- **Shows** signature age (e.g., "1 day 13 hours")
+- **Shares** data between players
+- **Cleans up** old signatures automatically
 
-## How to Use
+## Menu Options
 
-### Basic Usage
+- **[A]** Show all signatures
+- **[R]** Add signature manually
+- **[D]** Delete signature
+- **[X]** Export data for sharing
+- **[I]** Import shared data
 
-1. **Run the script**: `powershell -ExecutionPolicy Bypass -File evesigs.ps1`
-   - *Alternatively, you can use the "EVE Sig Analyzer" shortcut to run the script*
-2. **Copy EVE data**: Copy signature data from EVE's signature scanner
-3. **Press any key**: The script automatically reads your clipboard and processes the data
-4. **View results**: See which signatures are new, updated, or already known
+## Data Sharing
 
-### Menu Options
+**Export**: Press `X` - data copied to clipboard
+**Import**: Press `I` - paste shared data
 
-- **[A] Show All**: Display all stored signatures
-- **[R] Register**: Manually add a signature (ID + group selection)
-- **[D] Delete**: Remove signatures by ID
-- **[X] Export**: Export all signatures to clipboard for sharing
-- **[I] Import**: Import shared signature data from other players
-
-### Manual Registration
-
-1. Press `R` for manual registration
-2. Enter signature ID (e.g., "NEH-246")
-3. Select group type:
-   - `1` - Combat Site
-   - `2` - Data Site
-   - `3` - Gas Site
-   - `4` - Relic Site
-   - `5` - Wormhole
-
-### Data Sharing
-
-**Exporting:**
-1. Press `X` to export all signatures
-2. Data is copied to clipboard as a single line
-3. Share this line with other players
-
-**Importing:**
-1. Press `I` to import shared data
-2. Paste the shared data line
-3. Script automatically merges data, favoring oldest timestamps
-
-## EVE Data Format
-
-The tool expects EVE's standard clipboard format:
-```
-HJA-862	Cosmic Signature	Wormhole	Unstable Wormhole	100,0%	4,76 AU
-KOC-906	Cosmic Signature	Data Site	Limited Sleeper Cache	0,0%	3,40 AU
-```
-
-## File Structure
+## Files
 
 - `evesigs.ps1` - Main script
-- `evesigs.csv` - Local signature database (created automatically)
-- `EVE Sig Analyzer.lnk` - Windows shortcut
+- `evesigs.csv` - Your signature database (auto-created)
+- `EVE Sig Analyzer.lnk` - Windows shortcut only
 
 ## Requirements
 
-- Windows PowerShell
-
-## Credits
-
-Made by: Nehalennia  
-Started: 2020-26-10
+- **Windows**: PowerShell (built-in)
+- **Mac**: PowerShell Core (install via Homebrew: `brew install powershell`)
 
 ---
 
-*This tool is designed for EVE Online exploration and signature scanning. It helps track cosmic signatures across wormhole space and other exploration areas.* 
+*Made by Nehalennia | Started 2020-10-26*

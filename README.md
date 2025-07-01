@@ -1,6 +1,8 @@
 # EVE Signature Tracker
 
-A simple tool to track cosmic signatures in EVE Online. On keypress loads your copied signature data and shows what you've already identified.
+A simple tool to track cosmic signatures in EVE Online
+
+*On keypress loads your copied signature data and shows what you've already identified.*
 
 ![EVE Signature Tracker](assets/evesigs.jpg)
 
@@ -20,11 +22,11 @@ A simple tool to track cosmic signatures in EVE Online. On keypress loads your c
 
 ## What It Does
 
-- **Auto-detects** signatures from EVE's clipboard
+- **Analyzing** signatures from EVE's clipboard data
 - **Stores** data locally with timestamps
 - **Shows** signature age (e.g., "1 day 13 hours")
-- **Shares** data between players
-- **Cleans up** old signatures automatically
+- **Exports** and imports data to shared between pilots
+- **Cleans up** old signatures automatically older that 3 days
 
 ## Menu Options
 

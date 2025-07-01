@@ -1,6 +1,6 @@
 # EVE Signature Tracker
 
-A simple tool to track cosmic signatures in EVE Online. Automatically detects signatures from your clipboard and helps you manage exploration data.
+A simple tool to track cosmic signatures in EVE Online. On keypress loads your copied signature data and shows what you've already identified.
 
 ![EVE Signature Tracker](assets/evesigs.jpg)
 

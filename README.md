@@ -51,7 +51,3 @@ A simple tool to track cosmic signatures in EVE Online
 
 - **Windows**: PowerShell (built-in)
 - **Mac**: PowerShell Core (install via Homebrew: `brew install powershell`)
-
----
-
-*Made by Nehalennia | Started 2020-10-26*

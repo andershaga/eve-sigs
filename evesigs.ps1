@@ -6,7 +6,7 @@
 .OUTPUTS
     Signature identification compared to local database
 .NOTES
-    Made by: Nehalennia
+    Made by: Anders Haga
     Started: 2020-26-10
 #>
 
@@ -14,7 +14,7 @@ BEGIN
 {
     # ui
 
-    $host.UI.RawUI.WindowTitle = "EVE Signature Recorder (Nehalennia)"
+    $host.UI.RawUI.WindowTitle = "EVE Signature Recorder"
     $host.UI.RawUI.BackgroundColor = 'Black'
 
     # functions
